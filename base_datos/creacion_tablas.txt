@@ -1,0 +1,65 @@
+create database rokola;
+use rokola;
+create table album(
+id_album int auto_increment,
+nombre_album varchar(50) not null,
+constraint album_pk primary key(id_album));
+create table genero(
+id_genero int auto_increment,
+nombre_genero varchar(50) not null,
+constraint genero_pk primary key(id_genero));
+create table autor(
+id_autor int auto_increment,
+nombre_autor varchar(50),
+constraint autor_pk primary key(id_autor));
+create table lista_canciones(
+id_cancion int auto_increment,
+nombre_cancion varchar(50) not null,
+duracion_cancion int not null,
+lanzamiento_ano varchar(4) not null,
+id_autor int,
+id_genero int,
+id_album int,
+constraint lista_canciones_pk primary key(id_cancion),
+constraint lista_canciones_id_autor_fk foreign key (id_autor) references autor(id_autor),
+constraint lista_canciones_id_genero_fk foreign key (id_genero) references genero(id_genero),
+constraint lista_canciones_id_album_fk foreign key (id_album) references album(id_album));
+create table cancion_autor(
+id_cancion int,
+id_autor int,
+constraint cancion_autor_pk primary key(id_cancion,id_autor),
+constraint cancion_autor_id_cancion_fk foreign key(id_cancion) references lista_canciones(id_cancion),
+constraint cancion_autor_id_autor_fk foreign key (id_autor) references autor(id_autor));
+create table album_cancion(
+id_cancion int,
+id_album int,
+constraint album_cancion_pk primary key (id_album,id_cancion),
+constraint album_cancion_id_cancion_fk foreign key (id_cancion) references lista_canciones(id_cancion),
+constraint album_cancion_id_album_fk foreign key (id_album) references album(id_album));
+create table usuarios(
+id_usuario int auto_increment,
+nombre_usuario varchar(50) not null,
+clave varchar (50) not null,
+es_administrador boolean not null,
+constraint usuarios_pk primary key (id_usuario));
+create table sugerencias(
+id_sugerencia int auto_increment,
+nombre_cancion varchar(50) not null,
+album varchar (50),
+genero varchar(50),
+autor varchar(50),
+id_usuario int,
+constraint sugerencias_pk primary key (id_sugerencia),
+constraint sugerencia_id_usuario_fk foreign key (id_usuario) references usuarios(id_usuario));
+create table playlist(
+id_playlist int auto_increment,
+nombre_playlist varchar(50) not null,
+id_usuario int,
+constraint playlist_pk primary key (id_playlist),
+constraint playlist_id_usuario_fk foreign key (id_usuario) references usuarios(id_usuario));
+create table cancion_playlist(
+id_cancion int,
+id_playlist int,
+constraint cancion_playlist_pk primary key (id_cancion,id_playlist),
+constraint cancion_playlist_id_cancion_fk foreign key (id_cancion) references lista_canciones(id_cancion),
+constraint cancion_playlist_id_playlist_fk foreign key (id_playlist) references playlist(id_playlist));
