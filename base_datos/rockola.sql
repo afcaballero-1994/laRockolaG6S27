@@ -2,29 +2,29 @@ create database Rockola;
 use Rockola;
 create table autor(
 	id_autor int auto_increment,
-	nombre_autor varchar(50),
+	nombre_autor varchar(50) unique,
     constraint autor_pk primary key(id_autor)
 );
 
 create table genero(
 	id_genero int auto_increment,
-    nombre_genero varchar(50) not null,
+    nombre_genero varchar(50) not null unique,
     constraint genero_pk primary key (id_genero)
 );
 
 create table album(
 	id_album int auto_increment,
-    nombre_album varchar(50) not null,
+    nombre_album varchar(50) not null unique,
     anio_lanzamiento int not null,
     constraint album_pk primary key (id_album)
 );
 
 create table canciones(
 	id_cancion int auto_increment,
-    nombre_cancion varchar(50) not null,
-    duracion_cancion int not null,
-    id_genero int,
-    id_album int,
+    nombre_cancion varchar(50) not null unique,
+    duracion_cancion time not null,
+    id_genero int not null,
+    id_album int not null,
     constraint canciones_pk primary key(id_cancion),
     constraint canciones_id_genero_fk foreign key (id_genero) references genero (id_genero),
     constraint canciones_id_album_fk foreign key (id_album) references album (id_album)
@@ -39,7 +39,7 @@ create table canciones_autor(
 );
 create table usuarios(
 	id_usuario int auto_increment,
-    nombre_usuario varchar(50) not null,
+    nombre_usuario varchar(50) not null unique,
     password varchar (50) not null,
     esAdministrador tinyint not null,
     constraint usuarios_pk primary key (id_usuario)
@@ -47,7 +47,7 @@ create table usuarios(
 
 create table playlist (
 	id_playlist int auto_increment,
-    nombre_playlist varchar(50) not null,
+    nombre_playlist varchar(50) not null unique,
     id_cancion int,
     id_usuario int,
     constraint playlist_pk primary key (id_playlist),
