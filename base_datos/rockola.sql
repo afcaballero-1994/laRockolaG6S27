@@ -23,13 +23,11 @@ create table canciones(
 	id_cancion int auto_increment,
     nombre_cancion varchar(50) not null,
     duracion_cancion int not null,
-    id_autor int,
     id_genero int,
     id_album int,
     constraint canciones_pk primary key(id_cancion),
     constraint canciones_id_genero_fk foreign key (id_genero) references genero (id_genero),
-    constraint canciones_id_album_fk foreign key (id_album) references album (id_album),
-    constraint canciones_id_autor_fk foreign key (id_autor) references autor (id_autor)
+    constraint canciones_id_album_fk foreign key (id_album) references album (id_album)
 );
 
 create table canciones_autor(
@@ -83,4 +81,3 @@ create table sugerencias(
     constraint sugerencias_pk primary key (id_sugerencia),
     constraint sugerencias_usuarios_fk foreign key (id_usuario) references usuarios (id_usuario)
 );
-
