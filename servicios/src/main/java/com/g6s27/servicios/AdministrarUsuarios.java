@@ -40,7 +40,7 @@ public class AdministrarUsuarios {
 			Statement stm = conn.getCon().createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
-				Usuario usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("password"),
+				Usuario usuario = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre_usuario"), rs.getString("password"),
 						rs.getBoolean("esAdministrador"));
 				usuarios.add(usuario);
 			}

@@ -10,6 +10,13 @@ public class Usuario {
 	public Usuario () {
 		
 	}
+	public Usuario(int id_usuario,String nombre_usuario, String password, boolean esAdministrador) {
+		super();
+		this.id_usuario = id_usuario;
+		this.nombre_usuario = nombre_usuario;
+		this.password = password;
+		this.esAdministrador = esAdministrador;
+	}
 	public Usuario(String nombre_usuario, String password, boolean esAdministrador) {
 		super();
 		this.nombre_usuario = nombre_usuario;
