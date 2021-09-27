@@ -6,6 +6,17 @@ public class Usuario {
 	private String password;
 	private boolean esAdministrador;
 
+	
+	public Usuario () {
+		
+	}
+	public Usuario(String nombre_usuario, String password, boolean esAdministrador) {
+		super();
+		this.nombre_usuario = nombre_usuario;
+		this.password = password;
+		this.esAdministrador = esAdministrador;
+	}
+
 	public int getId_usuario() {
 		return id_usuario;
 	}
