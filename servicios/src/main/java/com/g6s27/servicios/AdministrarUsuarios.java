@@ -50,14 +50,18 @@ public class AdministrarUsuarios {
 		return usuarios;
 	}
 
-	public static ResultSet buscarUsuario(String nombre_usuario) {
+	public static Usuario buscarUsuario(String nombre_usuario) {
 		Conexion conn = new Conexion();
 		String Sql = String.format("select * from usuarios where nombre_usuario = '%s'", nombre_usuario);
 		PreparedStatement pstm;
 		try {
 			pstm = conn.getCon().prepareStatement(Sql);
 			ResultSet rs = pstm.executeQuery();
-			return rs;
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre_usuario"), rs.getString("password"),
+						rs.getBoolean("esAdministrador"));
+				return usuario;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

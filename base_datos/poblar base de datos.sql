@@ -19,4 +19,11 @@ where nombre_cancion = @nombre_cancion and nombre_autor = @nombre_autor;
 
 insert into album (nombre_album, anio_lanzamiento) values ('Evolve', 2017);
 
-delete from canciones where id_cancion = 2
+SET FOREIGN_KEY_CHECKS = 0;
+delete from canciones where id_cancion = 1;
+SET FOREIGN_KEY_CHECKS = 1;
+delete from canciones_autor where id_cancion = 1;
+
+update canciones
+set estaEliminada = 0
+where nombre_cancion = '8 miles'

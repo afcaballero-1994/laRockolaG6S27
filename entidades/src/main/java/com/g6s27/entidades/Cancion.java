@@ -9,8 +9,10 @@ public class Cancion {
 	private ArrayList<String> autor = new ArrayList<String>();
 	private String duracion_cancion;
 	private String genero;
+	private boolean estaEliminada;
 
-	public Cancion(String nombre_cancion, Album album, ArrayList<String> autor, String duracion_cancion, String genero) {
+	public Cancion(String nombre_cancion, Album album, ArrayList<String> autor, String duracion_cancion,
+			String genero) {
 		super();
 		this.nombre_cancion = nombre_cancion;
 		this.album = album;
@@ -61,6 +63,14 @@ public class Cancion {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public boolean isEstaEliminada() {
+		return estaEliminada;
+	}
+
+	public void setEstaEliminada(boolean estaEliminada) {
+		this.estaEliminada = estaEliminada;
 	}
 
 }

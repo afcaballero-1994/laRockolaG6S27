@@ -23,15 +23,16 @@ create table canciones(
 	id_cancion int auto_increment,
     nombre_cancion varchar(50) not null unique,
     duracion_cancion time not null,
-    id_genero int not null,
     id_album int not null,
+    id_genero int not null,
+    estaEliminada tinyint not null default 0,
     constraint canciones_pk primary key(id_cancion),
     constraint canciones_id_genero_fk foreign key (id_genero) references genero (id_genero),
     constraint canciones_id_album_fk foreign key (id_album) references album (id_album)
 );
 
 create table canciones_autor(
-	id_cancion int,
+    id_cancion int,
     id_autor int,
     constraint canciones_autor_pk primary key (id_cancion, id_autor),
     constraint cancion_autor_id_cancion_fk foreign key (id_cancion) references canciones (id_cancion),

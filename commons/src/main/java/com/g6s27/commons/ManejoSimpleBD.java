@@ -142,10 +142,10 @@ public class ManejoSimpleBD {
 		}
 		return false;
 	}
-	
+
 	public static boolean buscarCancion(String nombre_cancion) {
 		Conexion conn = new Conexion();
-		String sql = String.format("SELECT nombre_cancion FROM canciones where nombre_cancion = '%s';", nombre_cancion);
+		String sql = String.format("SELECT nombre_cancion FROM canciones where nombre_cancion = '%s' and estaEliminada = 0;", nombre_cancion);
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -159,4 +159,5 @@ public class ManejoSimpleBD {
 		}
 		return false;
 	}
+
 }
