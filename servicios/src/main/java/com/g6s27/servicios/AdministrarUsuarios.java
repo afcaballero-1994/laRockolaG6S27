@@ -65,4 +65,17 @@ public class AdministrarUsuarios {
 		return null;
 
 	}
+
+	public static String eliminarUsuario(String nombre_usuario) {
+		Conexion conn = new Conexion();
+		String sql = String.format("delete from usuarios where nombre_usuario = '%s'", nombre_usuario);
+		try {
+			PreparedStatement pstm = conn.getCon().prepareStatement(sql);
+			pstm.executeUpdate();
+		} catch (SQLException excepcion) {
+			System.out.println("Ha ocurrido un error al eliminar  " + excepcion.getMessage());
+			return "{\"Accion\":\"Error\"}";
+		}
+		return "{\"Accion\":\"Registro Borrado\"}";
+	}
 }

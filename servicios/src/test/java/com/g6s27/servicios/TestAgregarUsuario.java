@@ -5,8 +5,9 @@ import com.g6s27.entidades.Usuario;
 public class TestAgregarUsuario {
 
 	public static void main(String[] args) {
-		Usuario cliente = new Usuario ("cepalomo", "123456", true);
+		Usuario cliente = new Usuario ("cepalomo", "123456", false);
 		
+		System.out.println(AdministrarUsuarios.eliminarUsuario("cepalomo"));
 		System.out.println(AdministrarUsuarios.agregarUsuario(cliente));
 		
 	}
