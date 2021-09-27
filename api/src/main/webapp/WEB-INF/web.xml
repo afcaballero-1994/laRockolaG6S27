@@ -3,5 +3,17 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+	<display-name>Archetype Created Web application</display-name>
+	<servlet>
+		<servlet-name>Servlet Evaluacion</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>com.g6s27.rest</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>Servlet Evaluacion</servlet-name>
+	<url-pattern>/rockola/*</url-pattern>
+	</servlet-mapping>
 </web-app>
