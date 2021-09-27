@@ -78,8 +78,8 @@ public class AdministrarUsuarios {
 			pstm.executeUpdate();
 		} catch (SQLException excepcion) {
 			System.out.println("Ha ocurrido un error al eliminar  " + excepcion.getMessage());
-			return "{\"Accion\":\"Error\"}";
+			return "No se pudo eliminar el usuario";
 		}
-		return "{\"Accion\":\"Registro Borrado\"}";
+		return "Usuario eliminado";
 	}
 }
