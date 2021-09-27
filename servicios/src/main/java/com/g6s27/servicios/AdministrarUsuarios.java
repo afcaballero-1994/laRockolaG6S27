@@ -29,22 +29,40 @@ public class AdministrarUsuarios {
 		}
 
 	}
-	public static ArrayList<Usuario> consultarUsuarios (){
-		
+
+	public static ArrayList<Usuario> consultarUsuarios() {
+
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		Conexion conn = new Conexion ();
+		Conexion conn = new Conexion();
 		String sql = "select * from usuarios";
-		
+
 		try {
-            Statement stm = conn.getCon().createStatement();
-            ResultSet rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                Usuario usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("password"), rs.getBoolean("esAdministrador"));
-                usuarios.add(usuario);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return usuarios;
+			Statement stm = conn.getCon().createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getString("nombre_usuario"), rs.getString("password"),
+						rs.getBoolean("esAdministrador"));
+				usuarios.add(usuario);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuarios;
+	}
+
+	public static ResultSet buscarUsuario(String nombre_usuario) {
+		Conexion conn = new Conexion();
+		String Sql = String.format("select * from usuarios where nombre_usuario = '%s'", nombre_usuario);
+		PreparedStatement pstm;
+		try {
+			pstm = conn.getCon().prepareStatement(Sql);
+			ResultSet rs = pstm.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 }
