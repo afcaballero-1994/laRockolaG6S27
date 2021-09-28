@@ -89,15 +89,13 @@ public class AdministrarBaseDatos {
 				String sql = String.format(
 						"select c.nombre_cancion, c.duracion_cancion, a.nombre_album, a.anio_lanzamiento, g.nombre_genero\r\n"
 								+ "from album a\r\n" + "inner join canciones c on a.id_album = c.id_album\r\n"
-								+ "inner join canciones_autor ca on ca.id_cancion = c.id_cancion\r\n"
-								+ "inner join autor au on au.id_autor = ca.id_autor\r\n"
 								+ "inner join genero g on g.id_genero =  c.id_genero\r\n"
-								+ "where nombre_cancion = '%s' and estaEliminada = 0;",
+								+ "where nombre_cancion = 'Familia' and estaEliminada = 0;",
 						nombre_cancion);
 
 				stmt = conn.getCon().createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
-				Cancion cancion =  new Cancion();
+				Cancion cancion = new Cancion();
 				while (rs.next()) {
 					cancion.setNombre_cancion(rs.getString("nombre_cancion"));
 					cancion.setGenero(rs.getString("nombre_genero"));
@@ -113,6 +111,39 @@ public class AdministrarBaseDatos {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		return null;
+	}
+
+	public static ArrayList<Cancion> mostrarCanciones() {
+		Conexion conn = new Conexion();
+		Statement stmt = null;
+		try {
+
+			String sql = "select c.nombre_cancion, c.duracion_cancion, a.nombre_album, a.anio_lanzamiento, g.nombre_genero\r\n"
+					+ "from album a\r\n" + "inner join canciones c on a.id_album = c.id_album\r\n"
+					+ "inner join genero g on g.id_genero =  c.id_genero\r\n" + "where estaEliminada = 0;";
+
+			ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+			stmt = conn.getCon().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Cancion cancion = new Cancion();
+				cancion.setNombre_cancion(rs.getString("nombre_cancion"));
+				cancion.setGenero(rs.getString("nombre_genero"));
+				Album album_cancion = new Album(rs.getString("nombre_album"), rs.getInt("anio_lanzamiento"));
+				cancion.setAlbum(album_cancion);
+				cancion.setDuracion_cancion(rs.getString("duracion_cancion"));
+				ArrayList<String> autores = ManejoSimpleBD.consultarAutor(cancion.getNombre_cancion());
+				cancion.setAutor(autores);
+				canciones.add(cancion);
+			}
+			return canciones;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}

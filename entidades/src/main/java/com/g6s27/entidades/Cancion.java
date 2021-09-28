@@ -3,13 +3,11 @@ package com.g6s27.entidades;
 import java.util.ArrayList;
 
 public class Cancion {
-	private int id_cancion;
 	private String nombre_cancion;
 	private Album album;
 	private ArrayList<String> autor = new ArrayList<String>();
 	private String duracion_cancion;
 	private String genero;
-	private boolean estaEliminada;
 
 	public Cancion () {
 		
@@ -24,10 +22,7 @@ public class Cancion {
 		this.genero = genero;
 	}
 
-	public int getId_cancion() {
-		return id_cancion;
-	}
-
+	
 	public String getNombre_cancion() {
 		return nombre_cancion;
 	}
@@ -68,13 +63,7 @@ public class Cancion {
 		this.genero = genero;
 	}
 
-	public boolean isEstaEliminada() {
-		return estaEliminada;
-	}
-
-	public void setEstaEliminada(boolean estaEliminada) {
-		this.estaEliminada = estaEliminada;
-	}
+	
 	@Override
 	public String toString() {
 		return "Cancion [nombre_cancion=" + nombre_cancion + ", album=" + album.getNombre_album() + ", autor=" + autor
