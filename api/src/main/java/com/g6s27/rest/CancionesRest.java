@@ -3,6 +3,7 @@ package com.g6s27.rest;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,5 +35,13 @@ public class CancionesRest {
 	public void agregarCancion(Cancion cancion) {
 		AdministrarBaseDatos.agregarCancion(cancion);
 		System.out.println(cancion);
+	}
+	@Path("/eliminar")
+	@DELETE
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String eliminarCancion (String nombre_cancion) {
+		return AdministrarBaseDatos.eliminarCancion(nombre_cancion);
 	}
 }

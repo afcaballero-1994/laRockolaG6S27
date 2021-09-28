@@ -33,6 +33,8 @@ public class UsuarioRest {
 
 	@Path("/{UsuarioId}")
 	@DELETE
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String eliminarUsuario(@PathParam("UsuarioId") String nombre_usuario) {
 		return AdministrarUsuarios.eliminarUsuario(nombre_usuario);
 	}

@@ -56,8 +56,8 @@ public class AdministrarBaseDatos {
 
 	}
 
-	public static void eliminarCancion(Cancion cancion) {
-		boolean cancionExiste = ManejoSimpleBD.buscarCancion(cancion.getNombre_cancion());
+	public static String eliminarCancion(String nombre_cancion) {
+		boolean cancionExiste = ManejoSimpleBD.buscarCancion(nombre_cancion);
 		Conexion conn = new Conexion();
 		Statement stmt = null;
 		if (cancionExiste) {
@@ -65,18 +65,20 @@ public class AdministrarBaseDatos {
 
 				String sql = String.format(
 						"update canciones\r\n" + "set estaEliminada = 1\r\n" + "where nombre_cancion = '%s'",
-						cancion.getNombre_cancion());
-				System.out.println(sql);
+						nombre_cancion);
 				stmt = conn.getCon().createStatement();
 				stmt.executeUpdate(sql);
+				return "Cancion eliminada exitosamente";
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Cancion no existe en la base de datos");
+			return "Cancion no existe en la base de datos";
 		}
+		
+		return "Error al eliminar el registro";
 	}
 
 	public static Cancion consultarCancion(String nombre_cancion) {
