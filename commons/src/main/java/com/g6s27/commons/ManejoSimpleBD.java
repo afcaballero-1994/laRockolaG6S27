@@ -16,7 +16,6 @@ public class ManejoSimpleBD {
 		ArrayList<String> autorBD = new ArrayList<String>();
 
 		for (String autor : divididos) {
-			System.out.println(autor.trim());
 			autorBD.add(autor.trim());
 		}
 
@@ -26,13 +25,11 @@ public class ManejoSimpleBD {
 	public static void ingresarAutorBD(ArrayList<String> autorBD) {
 
 		Conexion conex = new Conexion();
-		String Sql = "insert into autor (nombre_autor) ";
-		Sql = Sql + "values(?)";
 
 		try {
 			for (String autor : autorBD) {
-				PreparedStatement pstm = conex.getCon().prepareStatement(Sql);
-				pstm.setString(1, autor);
+				String sql = String.format("insert into autor (nombre_autor) values ('%s')", autor);
+				PreparedStatement pstm = conex.getCon().prepareStatement(sql);
 				pstm.executeUpdate();
 			}
 
@@ -126,6 +123,7 @@ public class ManejoSimpleBD {
 		return false;
 	}
 
+	//regresa si un autor existe en la base de datos
 	public static boolean buscarAutor(String nombre_autor) {
 		Conexion conn = new Conexion();
 		String sql = String.format("SELECT nombre_autor FROM autor where nombre_autor = '%s';", nombre_autor);
@@ -145,7 +143,9 @@ public class ManejoSimpleBD {
 
 	public static boolean buscarCancion(String nombre_cancion) {
 		Conexion conn = new Conexion();
-		String sql = String.format("SELECT nombre_cancion FROM canciones where nombre_cancion = '%s' and estaEliminada = 0;", nombre_cancion);
+		String sql = String.format(
+				"SELECT nombre_cancion FROM canciones where nombre_cancion = '%s' and estaEliminada = 0;",
+				nombre_cancion);
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -158,6 +158,30 @@ public class ManejoSimpleBD {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	
+	//Regresa la lista de autores para una cancion
+	public static ArrayList<String> consultarAutor(String nombre_cancion) {
+		Conexion conn = new Conexion();
+		ArrayList<String> autores = new ArrayList<String>();
+		String sql = String.format("select au.nombre_autor\r\n" + "from canciones c \r\n"
+				+ "inner join canciones_autor ca on c.id_cancion = ca.id_cancion\r\n"
+				+ "inner join autor au on ca.id_autor = au.id_autor\r\n"
+				+ "where nombre_cancion = '%s' and estaEliminada = 0", nombre_cancion);
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.getCon().createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				autores.add(rs.getString("nombre_autor"));
+			}
+			return autores;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

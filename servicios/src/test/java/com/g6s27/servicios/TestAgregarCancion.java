@@ -9,11 +9,22 @@ import com.g6s27.entidades.Cancion;
 public class TestAgregarCancion {
 
 	public static void main(String[] args) {
-		ArrayList<String> resultado= ManejoSimpleBD.separarCadena("Eminem, Dr. Dre");
-		Album album = new Album ("Shady", 2012);
-		Cancion prueba = new Cancion("8 miles", album, resultado, "0:02:50", "Hip Hop");
-		//AdministrarBaseDatos.agregarCancion(prueba);
-		AdministrarBaseDatos.eliminarCancion(prueba);
+		ArrayList<String> resultado= ManejoSimpleBD.separarCadena("Anuel AA, Nicki Minaj, BANTU");
+		Album album = new Album ("Spiderman: Into the Spider-Verse", 2018);
+		Cancion prueba = new Cancion("Familia", album, resultado, "0:04:36", "Pop");
+		AdministrarBaseDatos.agregarCancion(prueba);
+		//AdministrarBaseDatos.eliminarCancion(prueba);
+		//Next to me 350
+		//I dont know why 310
+		//whatever it takes 321
+		//believer 324
+		
+		//Album:encore
+		//Evil deeds  419
+		//like toy soldiers mosh 239
+		
+		System.out.println(ManejoSimpleBD.consultarAutor(prueba.getNombre_cancion()));
+		System.out.println(AdministrarBaseDatos.consultarCancion(prueba.getNombre_cancion()));
 	}
 
 }

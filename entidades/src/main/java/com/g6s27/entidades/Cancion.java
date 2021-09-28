@@ -11,6 +11,9 @@ public class Cancion {
 	private String genero;
 	private boolean estaEliminada;
 
+	public Cancion () {
+		
+	}
 	public Cancion(String nombre_cancion, Album album, ArrayList<String> autor, String duracion_cancion,
 			String genero) {
 		super();
@@ -72,5 +75,12 @@ public class Cancion {
 	public void setEstaEliminada(boolean estaEliminada) {
 		this.estaEliminada = estaEliminada;
 	}
+	@Override
+	public String toString() {
+		return "Cancion [nombre_cancion=" + nombre_cancion + ", album=" + album.getNombre_album() + ", autor=" + autor
+				+ ", duracion_cancion=" + duracion_cancion + ", genero=" + genero + ", anio lanzamiento = "+album.getAnio_lanzamiento() + "]";
+	}
+	
+	
 
 }

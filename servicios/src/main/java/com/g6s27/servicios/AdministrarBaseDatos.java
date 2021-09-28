@@ -1,11 +1,13 @@
 package com.g6s27.servicios;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.g6s27.commons.ManejoSimpleBD;
+import com.g6s27.entidades.Album;
 import com.g6s27.entidades.Cancion;
 import com.g6s27.entidades.Conexion;
 
@@ -75,5 +77,43 @@ public class AdministrarBaseDatos {
 		} else {
 			System.out.println("Cancion no existe en la base de datos");
 		}
+	}
+
+	public static Cancion consultarCancion(String nombre_cancion) {
+		boolean cancionExiste = ManejoSimpleBD.buscarCancion(nombre_cancion);
+		if (cancionExiste) {
+			Conexion conn = new Conexion();
+			Statement stmt = null;
+			try {
+
+				String sql = String.format(
+						"select c.nombre_cancion, c.duracion_cancion, a.nombre_album, a.anio_lanzamiento, g.nombre_genero\r\n"
+								+ "from album a\r\n" + "inner join canciones c on a.id_album = c.id_album\r\n"
+								+ "inner join canciones_autor ca on ca.id_cancion = c.id_cancion\r\n"
+								+ "inner join autor au on au.id_autor = ca.id_autor\r\n"
+								+ "inner join genero g on g.id_genero =  c.id_genero\r\n"
+								+ "where nombre_cancion = '%s' and estaEliminada = 0;",
+						nombre_cancion);
+
+				stmt = conn.getCon().createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				Cancion cancion =  new Cancion();
+				while (rs.next()) {
+					cancion.setNombre_cancion(rs.getString("nombre_cancion"));
+					cancion.setGenero(rs.getString("nombre_genero"));
+					Album album_cancion = new Album(rs.getString("nombre_album"), rs.getInt("anio_lanzamiento"));
+					cancion.setAlbum(album_cancion);
+					cancion.setDuracion_cancion(rs.getString("duracion_cancion"));
+					ArrayList<String> autores = ManejoSimpleBD.consultarAutor(nombre_cancion);
+					cancion.setAutor(autores);
+					return cancion;
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 }

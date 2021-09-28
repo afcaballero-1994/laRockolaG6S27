@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class TestIngresarAutor {
 
 	public static void main(String[] args) {
-		ArrayList<String> resultado= ManejoSimpleBD.separarCadena("Bob Marley, Michael Jackson , Percy");
+		ArrayList<String> resultado= ManejoSimpleBD.separarCadena("Skylar Grey, Dr. Dre, Eminem");
 		
 		ManejoSimpleBD.ingresarAutorBD(resultado);
 		
-		ManejoSimpleBD.ingresarGeneroBD("Rock");
+		//ManejoSimpleBD.ingresarGeneroBD("Rock");
 		
 	}
 
